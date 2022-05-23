@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {ICharacter} from "../../models/ICharacter";
 
 export const characterAPI = createApi({
     reducerPath: "characterAPI",
@@ -9,21 +8,29 @@ export const characterAPI = createApi({
     tagTypes: ["Character"],
     endpoints: (build) => ({
         fetchAllCharacters: build.query({
-            query: () => ({
-                url: '/character'
-            }),
+            async queryFn (page: number = 1) {
+                const result = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
+                    .then(res => res.json())
+                    .then(res => res.results)
+                console.log(result)
+                return {data: [...result]}
+            },
+            providesTags: ["Character"]
         }),
-        getInfoCharacter: build.query({
-            async queryFn (id: number) {
-                const result = await fetch("https://rickandmortyapi.com/api/character");
+        getNumberPages: build.query({
+            async queryFn () {
+                const result = await fetch(`https://rickandmortyapi.com/api/character`)
+                    .then(res => res.json())
+                    .then(res => res.pages)
                 console.log(result)
                 return {data: result}
-            }
+            },
+            providesTags: ["Character"]
         })
     })
 })
 
 export const {
     useFetchAllCharactersQuery,
-    useGetInfoCharacterQuery
+    useGetNumberPagesQuery
 } = characterAPI

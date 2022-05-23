@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {Modal} from "react-bootstrap";
 import ModalCharacter from "./ModalCharacter";
 import {useFetchAllCharactersQuery} from "../store/API/CharacterAPI";
+import {ICharacter} from "../models/ICharacter";
 
 interface PropsChCard {
     imgUrl: string
@@ -49,15 +50,17 @@ interface CharacterProps {
     status: string,
     species: string,
     imgUrl: string,
-    id: number
+    id: number,
+    openInfo: (id: number) => any
 }
 
-const CharacterCard: FC<CharacterProps> = ({name, species, status,imgUrl, id}) => {
+const CharacterCard: FC<CharacterProps> = ({name, species, status,imgUrl, id, openInfo}) => {
     const [show, setShow] = useState<boolean>(false);
+    const [fullInfo, setFullInfo] = useState({})
 
     function handleShow() {
+        setFullInfo(openInfo(id))
         setShow(true);
-        // infoCharacterById(id)
     }
 
     return (
@@ -72,14 +75,7 @@ const CharacterCard: FC<CharacterProps> = ({name, species, status,imgUrl, id}) =
                 </TextBackground>
             </ChCard>
 
-            {show && <ModalCharacter show={show} setShow={setShow} id={id}/>}
-
-            {/*<Modal show={show} fullscreen onHide={() => setShow(false)}>*/}
-            {/*    <Modal.Header closeButton>*/}
-            {/*        <Modal.Title>Modal</Modal.Title>*/}
-            {/*    </Modal.Header>*/}
-            {/*    <Modal.Body>Modal body content</Modal.Body>*/}
-            {/*</Modal>*/}
+            {show && <ModalCharacter show={show} setShow={setShow} id={id} fullInfo={fullInfo}/>}
         </>
     );
 };

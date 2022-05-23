@@ -1,24 +1,30 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {Modal} from "react-bootstrap";
-import {useGetInfoCharacterQuery} from "../store/API/CharacterAPI";
+import styled from "styled-components";
 
 interface ModalProps {
     show: boolean;
     setShow: (a: boolean) => void;
-    id: number
+    id: number;
+    fullInfo: any
 }
 
-const ModalCharacter: FC<ModalProps> = ({show, setShow, id}) => {
-    const {data} = useGetInfoCharacterQuery(id)
+const Big = styled.p`
+  font-size: 36px;
+`
 
-    console.log("data ",data)
-
+const ModalCharacter: FC<ModalProps> = ({show, setShow, id, fullInfo}) => {
     return (
-        <Modal show={show} fullscreen onHide={() => setShow(false)}>
+        <Modal show={show} fullscreen onHide={() => setShow(false)} dialogClassName="modal-90w">
             <Modal.Header closeButton>
-                <Modal.Title>Modal {id}</Modal.Title>
+                Title
             </Modal.Header>
-            <Modal.Body>Modal body content</Modal.Body>
+            <Modal.Body style={{
+                maxHeight: 'calc(100vh)',
+                overflowY: 'auto'
+            }}>
+                <Big>{JSON.stringify(fullInfo, null ,2)}</Big>
+            </Modal.Body>
         </Modal>
     );
 };
