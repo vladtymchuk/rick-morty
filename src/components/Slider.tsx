@@ -2,6 +2,7 @@ import React, {FC, useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
 import {Text} from "./ModalCharacter"
 
+
 const SliderContainer = styled.div`
   width: 100%;
   height: 350px;
@@ -85,7 +86,8 @@ interface SliderProps {
 }
 
 const Slider: FC<SliderProps> = ({episode}) => {
-    const slider = useRef<any>(null)
+    const slider = useRef<any>(null);
+    // const {data: episodeObj} = useFetchLinkEpisodeQuery(episode)
 
     let position = 0
 

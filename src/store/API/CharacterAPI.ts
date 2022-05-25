@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 export const characterAPI = createApi({
     reducerPath: "characterAPI",
@@ -32,5 +32,5 @@ export const characterAPI = createApi({
 
 export const {
     useFetchAllCharactersQuery,
-    useGetNumberPagesQuery
+    useGetNumberPagesQuery,
 } = characterAPI
