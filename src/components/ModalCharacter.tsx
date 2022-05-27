@@ -47,9 +47,7 @@ const Header = styled(Modal.Header)`
 const ModalCharacter: FC<ModalProps> = ({show, setShow, id, fullInfo}) => {
 
 
-    // useEffect(()=>{
-    //     setItems(fullInfo[0].episode)
-    // },[])
+    
 
 
     return (

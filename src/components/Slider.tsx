@@ -1,6 +1,6 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useEffect, useRef} from 'react';
 import styled from "styled-components";
-import {Text} from "./ModalCharacter"
+import SliderItem from "./SliderItem";
 
 
 const SliderContainer = styled.div`
@@ -17,23 +17,7 @@ const SliderTrack = styled.div`
   display: flex;
   overflow: hidden;
 `
-const SliderItem = styled.div`
-  min-width: 23%;
-  /*height: auto;*/
 
-  color: aliceblue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-
-  font-size: 14px;
-  padding: 5px;
-
-  transition: 1s;
-
-  background-color: #c61a1a;
-`
 const SliderPrevBtn = styled.button`
   width: 30px;
   height: 30px;
@@ -87,13 +71,12 @@ interface SliderProps {
 
 const Slider: FC<SliderProps> = ({episode}) => {
     const slider = useRef<any>(null);
-    // const {data: episodeObj} = useFetchLinkEpisodeQuery(episode)
 
     let position = 0
 
     const prevHandler = () => {
         if (position !== 0) {
-            position+=550
+            position+=470
             slider.current.childNodes.forEach((elem:any)=> {
                 elem.style = `transform: translateX(${position}px)`
             })
@@ -101,8 +84,8 @@ const Slider: FC<SliderProps> = ({episode}) => {
     }
     const nextHandler = () => {
         console.log(slider.current?.childNodes)
-        if (position > -((episode.length - 4) * 550)){
-            position-=550
+        if (position > -((episode.length - 4) * 470)){
+            position-=470
 
             slider.current?.childNodes.forEach((elem:any)=> {
                 elem.style = `transform: translateX(${position}px)`
@@ -125,9 +108,8 @@ const Slider: FC<SliderProps> = ({episode}) => {
         <SliderContainer>
             <SliderTrack ref={slider}>
                 {episode.map((elem, index)=>{
-                    return <SliderItem>
-                        <Text>{elem}</Text>
-                    </SliderItem>
+                    console.log("elem",elem)
+                    return <SliderItem key={index} episode={elem} />
                 })}
             </SliderTrack>
             <SliderPrevBtn onClick={prevHandler}>{`<`}</SliderPrevBtn>
