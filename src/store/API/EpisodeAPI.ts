@@ -11,8 +11,15 @@ export const episodeApi = createApi({
             async queryFn (link: string) {
                 const result = await fetch(link)
                     .then(res => res.json())
-                    // .then(res => res)
-                console.log(result)
+                return {data: result}
+            },
+            providesTags: ["Episode"]
+        }),
+        fetchAllEpisodes: build.query({
+            async queryFn (page: number = 1) {
+                const result = await fetch(`https://rickandmortyapi.com/api/episode?page=${page}`)
+                    .then(res => res.json())
+                    .then(res => res.results)
                 return {data: result}
             },
             providesTags: ["Episode"]
@@ -21,5 +28,6 @@ export const episodeApi = createApi({
 })
 
 export const {
-    useFetchEpisodeQuery
+    useFetchEpisodeQuery,
+    useFetchAllEpisodesQuery
 } = episodeApi
