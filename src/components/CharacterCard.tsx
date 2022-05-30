@@ -1,8 +1,6 @@
 import React, {FC, useState} from 'react';
 import styled from "styled-components";
-import {Modal} from "react-bootstrap";
 import ModalCharacter from "./ModalCharacter";
-import {useFetchAllCharactersQuery} from "../store/API/CharacterAPI";
 import {ICharacter} from "../models/ICharacter";
 
 interface PropsChCard {
@@ -46,17 +44,15 @@ const CardText = styled.div`
 `
 
 interface CharacterProps {
-    name: string,
-    status: string,
-    species: string,
-    imgUrl: string,
-    id: number,
+    character: ICharacter,
     openInfo: (id: number) => any
 }
 
-const CharacterCard: FC<CharacterProps> = ({name, species, status,imgUrl, id, openInfo}) => {
+const CharacterCard: FC<CharacterProps> = ({character, openInfo}) => {
     const [show, setShow] = useState<boolean>(false);
+    const {name, id, status, species, image} = character
     const [fullInfo, setFullInfo] = useState({})
+
 
     function handleShow() {
         setFullInfo(openInfo(id))
@@ -65,7 +61,7 @@ const CharacterCard: FC<CharacterProps> = ({name, species, status,imgUrl, id, op
 
     return (
         <>
-            <ChCard imgUrl={imgUrl}
+            <ChCard imgUrl={image}
                 onClick={handleShow}
             >
                 <TextBackground>

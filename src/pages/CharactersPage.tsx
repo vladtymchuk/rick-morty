@@ -43,11 +43,11 @@ const PaginationButton = styled.button`
 
 const CharactersPage: FC = () => {
     const [page, setPage] = useState<number>(1)
-    const {data: characters, error, isLoading} = useFetchAllCharactersQuery(page)
+    const {data: characters} = useFetchAllCharactersQuery(page)
     const {data: pageNum} = useGetNumberPagesQuery(null)
 
     const nextHandler = () => {
-        setPage(prevState => prevState + 1)
+        pageNum > page && setPage(prevState => prevState + 1)
     }
 
     const prevHandler = () => {
@@ -64,11 +64,7 @@ const CharactersPage: FC = () => {
                 {
                     characters && characters.map((character: ICharacter) => {
                         return <CharacterCard key={character.id}
-                                              id={character.id}
-                                              name={character.name}
-                                              status={character.status}
-                                              species={character.species}
-                                              imgUrl={character.image}
+                                              character={character}
                                               openInfo={openInfo}
                         />
                     })

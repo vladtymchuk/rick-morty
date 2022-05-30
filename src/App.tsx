@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
-import CharactersPage from "./pages/CharactersPage";
+import React from 'react';
+import {AppRouting} from "./routing/AppRouting";
+
 
 function App() {
-  return <div className="App">
-    <CharactersPage/>
-  </div>;
+  return (
+      <AppRouting/>
+  )
 }
 
 export default App;

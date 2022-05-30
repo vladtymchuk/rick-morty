@@ -2,6 +2,7 @@ import {combineReducers, configureStore} from "@reduxjs/toolkit"
 import {characterAPI} from "./API/CharacterAPI";
 import {episodeApi} from "./API/EpisodeAPI";
 
+
 const rootReducer = combineReducers({
     [characterAPI.reducerPath]: characterAPI.reducer,
     [episodeApi.reducerPath]: episodeApi.reducer

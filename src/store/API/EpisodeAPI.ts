@@ -23,11 +23,21 @@ export const episodeApi = createApi({
                 return {data: result}
             },
             providesTags: ["Episode"]
+        }),
+        getNumberPages: build.query({
+            async queryFn () {
+                const result = await fetch(`https://rickandmortyapi.com/api/episode`)
+                    .then(res => res.json())
+                    .then(res => res.info.pages)
+                return {data: result}
+            },
+            providesTags: ["Episode"]
         })
     })
 })
 
 export const {
     useFetchEpisodeQuery,
-    useFetchAllEpisodesQuery
+    useFetchAllEpisodesQuery,
+    useGetNumberPagesQuery
 } = episodeApi
