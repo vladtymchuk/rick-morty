@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef} from 'react';
+import React, {FC, useRef} from 'react';
 import styled from "styled-components";
 import SliderItem from "./SliderItem";
 
@@ -83,7 +83,6 @@ const Slider: FC<SliderProps> = ({episode}) => {
         }
     }
     const nextHandler = () => {
-        console.log(slider.current?.childNodes)
         if (position > -((episode.length - 4) * 470)){
             position-=470
 
@@ -94,21 +93,14 @@ const Slider: FC<SliderProps> = ({episode}) => {
             position = 0
             slider.current?.childNodes
                 .forEach((elem:any)=> {
-                    // console.log(elem.childNodes)
                     elem.style = `transform: translateX(${position}px)`
                 })
         }
     }
-
-    useEffect(() => {
-        console.log("123",episode)
-    })
-
     return (
         <SliderContainer>
             <SliderTrack ref={slider}>
                 {episode.map((elem, index)=>{
-                    console.log("elem",elem)
                     return <SliderItem key={index} episode={elem} />
                 })}
             </SliderTrack>

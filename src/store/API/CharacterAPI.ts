@@ -12,7 +12,6 @@ export const characterAPI = createApi({
                 const result = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
                     .then(res => res.json())
                     .then(res => res.results)
-                console.log(result)
                 return {data: [...result]}
             },
             providesTags: ["Character"]
@@ -22,7 +21,6 @@ export const characterAPI = createApi({
                 const result = await fetch(`https://rickandmortyapi.com/api/character`)
                     .then(res => res.json())
                     .then(res => res.pages)
-                console.log(result)
                 return {data: result}
             },
             providesTags: ["Character"]
